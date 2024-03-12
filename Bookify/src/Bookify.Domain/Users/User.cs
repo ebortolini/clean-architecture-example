@@ -9,6 +9,7 @@ namespace Bookify.Domain.Users
                      FirstName firstName,
                      LastName lastName,
                      Email email) : base(id) { }
+        private User() { }
 
         public FirstName FirstName { get; private set; }
 
