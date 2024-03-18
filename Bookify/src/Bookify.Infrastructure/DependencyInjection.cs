@@ -31,12 +31,19 @@ namespace Bookify.Infrastructure
 
             AddPersistence(services, configuration);
 
+            AddAithentication(services, configuration);
+
+            return services;
+        }
+
+        private static void AddAithentication(IServiceCollection services, IConfiguration configuration)
+        {
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer();
 
             services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
-            
+
             services.ConfigureOptions<JwtBearerOptionsSetup>();
 
             services.Configure<KeycloakOptions>(configuration.GetSection("Keycloak"));
@@ -51,7 +58,12 @@ namespace Bookify.Infrastructure
             })
             .AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
 
-            return services;
+            services.AddHttpClient<IJwtService, JwtService>((serviceProvider, httpClient) =>
+            {
+                KeycloakOptions keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
+
+                httpClient.BaseAddress = new Uri(keycloakOptions.TokenUrl);
+            });
         }
 
         private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
