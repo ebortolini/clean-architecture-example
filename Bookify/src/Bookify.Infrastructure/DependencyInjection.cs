@@ -7,11 +7,13 @@ using Bookify.Domain.Apartments;
 using Bookify.Domain.Bookings;
 using Bookify.Domain.Users;
 using Bookify.Infrastructure.Authentication;
+using Bookify.Infrastructure.Authorization;
 using Bookify.Infrastructure.Clock;
 using Bookify.Infrastructure.Data;
 using Bookify.Infrastructure.Email;
 using Bookify.Infrastructure.Repositories;
 using Dapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +35,7 @@ namespace Bookify.Infrastructure
 
             AddAithentication(services, configuration);
 
+            AddAuthorization(services);
             return services;
         }
 
@@ -42,7 +45,7 @@ namespace Bookify.Infrastructure
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer();
 
-            services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
+            services.Configure<Authentication.AuthenticationOptions>(configuration.GetSection("Authentication"));
 
             services.ConfigureOptions<JwtBearerOptionsSetup>();
 
@@ -50,7 +53,7 @@ namespace Bookify.Infrastructure
 
             services.AddTransient<AdminAuthorizationDelegatingHandler>();
 
-            services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) =>
+            services.AddHttpClient<Application.Abstractions.Authentication.IAuthenticationService, Authentication.AuthenticationService>((serviceProvider, httpClient) =>
             {
                 KeycloakOptions keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
 
@@ -64,6 +67,8 @@ namespace Bookify.Infrastructure
 
                 httpClient.BaseAddress = new Uri(keycloakOptions.TokenUrl);
             });
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUserContext, UserContext>();
         }
 
         private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
@@ -87,6 +92,12 @@ namespace Bookify.Infrastructure
             services.AddScoped<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
 
             SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
+        }
+
+        private static void AddAuthorization(IServiceCollection services)
+        {
+            services.AddScoped<AuthorizationService>();
+            services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
         }
     }
 }
