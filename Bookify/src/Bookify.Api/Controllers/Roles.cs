@@ -5,3 +5,4 @@
         public const string Registered = "Registered";
     }
 }
+
