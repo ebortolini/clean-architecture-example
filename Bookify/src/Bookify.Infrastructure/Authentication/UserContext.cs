@@ -12,6 +12,12 @@ namespace Bookify.Infrastructure.Authentication
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public Guid UserId => _httpContextAccessor
+                .HttpContext?
+                .User
+                .GetUserId() ??
+            throw new ApplicationException("User context is unavailable");
+
         public string IdentityId =>
             _httpContextAccessor
                 .HttpContext?
