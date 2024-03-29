@@ -56,6 +56,8 @@ namespace Bookify.Application.Bookings.ReserveBooking
                                           duration,
                                           _dateTimeProvider.UtcNow,
                                           _pricingService);
+                
+                _bookingRepository.Add(booking);
 
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
 
