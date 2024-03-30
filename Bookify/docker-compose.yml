@@ -51,7 +51,3 @@ services:
     restart: always
     ports:
       - '6379:6379'
-
-networks:
-  bookify_net:
-    driver: bridge

@@ -12,7 +12,7 @@ COPY ["src/Bookify.Api/Bookify.Api.csproj", "src/Bookify.Api/"]
 COPY ["src/Bookify.Application/Bookify.Application.csproj", "src/Bookify.Application/"]
 COPY ["src/Bookify.Domain/Bookify.Domain.csproj", "src/Bookify.Domain/"]
 COPY ["src/Bookify.Infrastructure/Bookify.Infrastructure.csproj", "src/Bookify.Infrastructure/"]
-RUN dotnet restore "./src/Bookify.Api/./Bookify.Api.csproj"
+RUN dotnet restore "./src/Bookify.Api/Bookify.Api.csproj"
 COPY . .
 WORKDIR "/src/src/Bookify.Api"
 RUN dotnet build "./Bookify.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build

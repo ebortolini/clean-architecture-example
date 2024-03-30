@@ -28,8 +28,6 @@ app.ApplyMigrations();
 
 if (app.Environment.IsDevelopment())
 {
-    
-
     //app.SeedData();
 }
 
