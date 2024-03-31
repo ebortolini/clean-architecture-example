@@ -1,4 +1,6 @@
+using Asp.Versioning.ApiExplorer;
 using Bookify.Api.Extensions;
+using Bookify.Api.OpenApi;
 using Bookify.Application;
 using Bookify.Infrastructure;
 using HealthChecks.UI.Client;
@@ -20,10 +22,20 @@ builder.Services.AddApplication();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
+
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(options =>
+{
+    foreach (ApiVersionDescription description in app.DescribeApiVersions())
+    {
+        string url = $"/swagger/{description.GroupName}/swagger.json";
+        string name = description.GroupName.ToUpperInvariant();
+        options.SwaggerEndpoint(url, name);
+    }
+});
 app.ApplyMigrations();
 
 if (app.Environment.IsDevelopment())
@@ -36,8 +48,6 @@ app.UseHttpsRedirection();
 app.UseRequestContextLogging();
 
 app.UseSerilogRequestLogging();
-
-
 
 app.UseCustomExceptionHandler();
 
