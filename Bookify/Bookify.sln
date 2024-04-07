@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookify.Application", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookify.Infrastructure", "src\Bookify.Infrastructure\Bookify.Infrastructure.csproj", "{2EF64077-F628-42E2-A73C-6B2C22632FA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Api", "src\Bookify.Api\Bookify.Api.csproj", "{AFFFC822-CFD7-4B0F-BB64-5812B318FD70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookify.Api", "src\Bookify.Api\Bookify.Api.csproj", "{AFFFC822-CFD7-4B0F-BB64-5812B318FD70}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1DA481E8-6C07-463E-B683-C5787405A780}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Domain.UnitTests", "test\Bookify.Domain.UnitTests\Bookify.Domain.UnitTests.csproj", "{F050EFBD-3AC2-4F26-8222-92885EF0E9B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{1DA481E8-6C07-463E-B683-C5787405A780}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DA481E8-6C07-463E-B683-C5787405A780}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DA481E8-6C07-463E-B683-C5787405A780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F050EFBD-3AC2-4F26-8222-92885EF0E9B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F050EFBD-3AC2-4F26-8222-92885EF0E9B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F050EFBD-3AC2-4F26-8222-92885EF0E9B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F050EFBD-3AC2-4F26-8222-92885EF0E9B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +58,7 @@ Global
 		{F92B3ABC-2FE2-4B7B-857E-0E904FF96BE3} = {4C7B4143-A0B6-4F08-BB21-595C9DB94B0D}
 		{2EF64077-F628-42E2-A73C-6B2C22632FA6} = {4C7B4143-A0B6-4F08-BB21-595C9DB94B0D}
 		{AFFFC822-CFD7-4B0F-BB64-5812B318FD70} = {4C7B4143-A0B6-4F08-BB21-595C9DB94B0D}
+		{F050EFBD-3AC2-4F26-8222-92885EF0E9B8} = {CC1F0397-4A94-442A-9E3F-E46A81D64D4C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50DAF00E-0716-4382-AF24-CCB7840BBF73}
