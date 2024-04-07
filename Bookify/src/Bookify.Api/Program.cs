@@ -1,4 +1,7 @@
+using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Asp.Versioning.Builder;
+using Bookify.Api.Controllers.Bookings;
 using Bookify.Api.Extensions;
 using Bookify.Api.OpenApi;
 using Bookify.Application;
@@ -56,6 +59,16 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+ApiVersionSet apiVersionSet = app.NewApiVersionSet()
+                .HasApiVersion(new ApiVersion(1))
+                .ReportApiVersions()
+                .Build();
+
+var routeGroupBuilder = app.MapGroup("api/v{version:apiVersion}")
+    .WithApiVersionSet(apiVersionSet);
+
+routeGroupBuilder.MapBookingEndpoins();
 
 app.MapHealthChecks("health", new HealthCheckOptions
 {
