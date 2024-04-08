@@ -1,4 +1,6 @@
-﻿namespace Bookify.Domain.Bookings
+﻿using Bookify.Domain.Abstratcions;
+
+namespace Bookify.Domain.Bookings
 {
     public sealed class DateRange
     {
@@ -24,6 +26,16 @@
                 Start = start,
                 End = end
             };
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !(obj is DateRange))
+                return false;
+            
+            var dateRange = (DateRange)obj;
+            
+            return dateRange.Start == Start && dateRange.End == End;
         }
     }
 }

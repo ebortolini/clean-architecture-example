@@ -8,7 +8,7 @@ using Bookify.Domain.Users;
 
 namespace Bookify.Application.Bookings.ReserveBooking
 {
-    internal sealed class ReverveBookingCommandHandler : ICommandHandler<ReserveBookingCommand, Guid>
+    internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBookingCommand, Guid>
     {
         private readonly IUserRepository _userRepository;
         private readonly IApartmentRepository _apartmentRepository;
@@ -17,7 +17,7 @@ namespace Bookify.Application.Bookings.ReserveBooking
         private readonly PricingService _pricingService;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public ReverveBookingCommandHandler(IUserRepository userRepository,
+        public ReserveBookingCommandHandler(IUserRepository userRepository,
                                             IApartmentRepository apartmentRepository,
                                             IBookingRepository bookingRepository,
                                             IUnitOfWork unitOfWork,

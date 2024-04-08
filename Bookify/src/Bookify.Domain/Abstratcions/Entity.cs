@@ -24,5 +24,12 @@
         {
             _domainEvents.Add(domainEvent);
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || this.GetType() != obj.GetType())
+                return false;
+            return Id == ((Entity)obj).Id;
+        }
     }
 }
